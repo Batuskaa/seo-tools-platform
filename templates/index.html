@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Multi-API Keyword Araştırma Aracı</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="main-title">🔍 Multi-API Keyword Araştırma Aracı</h1>
+            <p class="subtitle">Profesyonel SEO analizi ve keyword araştırması için gelişmiş platform</p>
+        </div>
+    </header>
+
+    <!-- Kategori Menüsü -->
+    <nav class="category-nav">
+        <div class="container">
+            <div class="category-menu">
+                <button class="category-item active" onclick="showCategory('keyword-research')">
+                    <span class="category-icon">🔍</span>
+                    <span class="category-text">Keyword Araştırma</span>
+                </button>
+                <button class="category-item" onclick="showCategory('seo-analysis')">
+                    <span class="category-icon">📊</span>
+                    <span class="category-text">SEO Analiz</span>
+                </button>
+                <button class="category-item" onclick="showCategory('domain-tools')">
+                    <span class="category-icon">💎</span>
+                    <span class="category-text">Domain Araçları</span>
+                </button>
+                <button class="category-item" onclick="showCategory('backlink-analysis')">
+                    <span class="category-icon">🔗</span>
+                    <span class="category-text">Backlink Analiz</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Multi-API Info Banner -->
+        <div class="api-info-banner">
+            <h3>🚀 Gelişmiş Multi-API Sistemi</h3>
+            <p><strong>Artık 4 farklı API'den veri çekiyoruz! Bir API çalışmazsa otomatik olarak diğeri devreye girer.</strong></p>
+            <div class="api-list">
+                <div class="api-item">🔍 <strong>Google Trends</strong> - Birincil veri kaynağı</div>
+                <div class="api-item">🏄‍♂️ <strong>Keyword Surfer</strong> - Alternatif arama hacmi</div>
+                <div class="api-item">💡 <strong>Ubersuggest Alternative</strong> - Keyword önerileri</div>
+                <div class="api-item">🏠 <strong>Yerel Öneriler</strong> - Akıllı veri tabanı</div>
+            </div>
+            <p style="margin-bottom: 0;"><em>%99.9 uptime garantisi ile her zaman veri bulur!</em></p>
+        </div>
+
+        <!-- Keyword Araştırma Kategorisi -->
+        <div class="category-section" id="keyword-research">
+            <!-- Keyword Araştırma Kartı -->
+            <div class="card">
+                <h2 class="card-title">
+                    <div class="card-icon">🔍</div>
+                    Ülkeye Göre Popüler Keyword'ler
+                </h2>
+                <form class="form" id="countryForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="country">Ülke Kodu</label>
+                            <input type="text" id="country" name="country" class="form-input" placeholder="TR, US, DE..." required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="keyword">Keyword</label>
+                            <input type="text" id="keyword" name="keyword" class="form-input" placeholder="bitcoin, altın, python..." required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>🔍</span>
+                        Keyword Araştır
+                    </button>
+                </form>
+                <div id="countryResults" class="results"></div>
+            </div>
+        </div>
+
+        <!-- SEO Analiz Kategorisi -->
+        <div class="category-section" id="seo-analysis" style="display: none;">
+            <!-- SEO Analiz Kartı -->
+            <div class="card">
+                <h2 class="card-title">
+                    <div class="card-icon">📊</div>
+                    SEO Analiz & Trend Analizi
+                </h2>
+                <form class="form" id="keywordForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="seo-keyword">Keyword</label>
+                            <input type="text" id="seo-keyword" name="keyword" class="form-input" placeholder="Analiz edilecek keyword..." required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="seo-country">Ülke Kodu</label>
+                            <input type="text" id="seo-country" name="country" class="form-input" placeholder="TR, US, DE..." required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>📊</span>
+                        SEO Analizi Yap
+                    </button>
+                </form>
+                <div id="keywordResults" class="results"></div>
+            </div>
+        </div>
+
+        <!-- Domain Araçları Kategorisi -->
+        <div class="category-section" id="domain-tools" style="display: none;">
+            <!-- SEO Domain Arama Kartı -->
+            <div class="card">
+                <h2 class="card-title">
+                    <div class="card-icon">💎</div>
+                    SEO Domain Arama & Analiz
+                </h2>
+                <p class="card-description">
+                    Keyword ile ilgili SEO açısından değerli, boşta olan domain'leri bulun. 
+                    Backlink profili, domain yaşı ve SEO skorları analiz edilir.
+                </p>
+                <form class="form" id="seoDomainsForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="seo-domain-keyword">Keyword</label>
+                            <input type="text" id="seo-domain-keyword" name="keyword" class="form-input" placeholder="altın, bitcoin, emlak..." required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="seo-domain-country">Ülke</label>
+                            <select id="seo-domain-country" name="country" class="form-input" required>
+                                <option value="TR">🇹🇷 Türkiye</option>
+                                <option value="US">🇺🇸 Amerika</option>
+                                <option value="DE">🇩🇪 Almanya</option>
+                                <option value="FR">🇫🇷 Fransa</option>
+                                <option value="UK">🇬🇧 İngiltere</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="seo-domain-limit">Sonuç Sayısı</label>
+                            <select id="seo-domain-limit" name="limit" class="form-input">
+                                <option value="5">5 Domain</option>
+                                <option value="10" selected>10 Domain</option>
+                                <option value="15">15 Domain</option>
+                                <option value="20">20 Domain</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>💎</span>
+                        SEO Domain'leri Bul
+                    </button>
+                </form>
+                <div id="seoDomainsResults" class="results"></div>
+            </div>
+
+            <!-- Domain Kontrol Kartı -->
+            <div class="card">
+                <h2 class="card-title">
+                    <div class="card-icon">🌐</div>
+                    Domain Kontrol & Analiz
+                </h2>
+                <form class="form" id="domainForm">
+                    <div class="form-group">
+                        <label class="form-label" for="domain">Domain Adı</label>
+                        <input type="text" id="domain" name="domain" class="form-input" placeholder="google, amazon, trendyol..." required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>🌐</span>
+                        Domain Kontrol Et
+                    </button>
+                </form>
+                <div id="domainResults" class="results"></div>
+            </div>
+        </div>
+
+        <!-- Backlink Analiz Kategorisi -->
+        <div class="category-section" id="backlink-analysis" style="display: none;">
+            <!-- Backlink Domain Arama Kartı -->
+            <div class="card">
+                <h2 class="card-title">
+                    <div class="card-icon">🔗</div>
+                    Backlink Domain Arama
+                </h2>
+                <p class="card-description">
+                    Keyword ile ilgili en çok backlink'e sahip boşta olan domain'leri bulun. 
+                    Güçlü backlink profili olan expired domain'ler SEO için çok değerlidir.
+                </p>
+                <form class="form" id="backlinkDomainsForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="backlink-keyword">Keyword</label>
+                            <input type="text" id="backlink-keyword" name="keyword" class="form-input" placeholder="altın, bitcoin, emlak..." required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="backlink-country">Ülke</label>
+                            <select id="backlink-country" name="country" class="form-input" required>
+                                <option value="TR">🇹🇷 Türkiye</option>
+                                <option value="US">🇺🇸 Amerika</option>
+                                <option value="DE">🇩🇪 Almanya</option>
+                                <option value="FR">🇫🇷 Fransa</option>
+                                <option value="UK">🇬🇧 İngiltere</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="backlink-min-links">Min. Backlink</label>
+                            <select id="backlink-min-links" name="min_backlinks" class="form-input">
+                                <option value="100">100+ Backlink</option>
+                                <option value="500" selected>500+ Backlink</option>
+                                <option value="1000">1000+ Backlink</option>
+                                <option value="5000">5000+ Backlink</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>🔗</span>
+                        Backlink Domain'leri Bul
+                    </button>
+                </form>
+                <div id="backlinkDomainsResults" class="results"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Kategori değiştirme fonksiyonu
+        function showCategory(categoryId) {
+            // Tüm kategorileri gizle
+            const categories = document.querySelectorAll('.category-section');
+            categories.forEach(cat => cat.style.display = 'none');
+            
+            // Tüm menü öğelerinden active sınıfını kaldır
+            const menuItems = document.querySelectorAll('.category-item');
+            menuItems.forEach(item => item.classList.remove('active'));
+            
+            // Seçilen kategoriyi göster
+            document.getElementById(categoryId).style.display = 'block';
+            
+            // Seçilen menü öğesine active sınıfını ekle
+            event.target.closest('.category-item').classList.add('active');
+        }
+
+        // Önerilen keyword'i dene
+        function tryKeyword(keyword) {
+            document.querySelector('#keyword').value = keyword;
+            // Otomatik olarak arama yap
+            document.getElementById('countryForm').dispatchEvent(new Event('submit'));
+        }
+        
+        // API badge class'ını belirle
+        function getApiBadgeClass(apiName) {
+            switch(apiName) {
+                case "Google Trends": return "api-google";
+                case "Keyword Surfer": return "api-surfer";
+                case "Ubersuggest Alternative": return "api-uber";
+                case "Yerel Öneriler": return "api-local";
+                default: return "api-local";
+            }
+        }
+        
+        // API icon'unu belirle
+        function getApiIcon(apiName) {
+            switch(apiName) {
+                case "Google Trends": return "🔍";
+                case "Keyword Surfer": return "🏄‍♂️";
+                case "Ubersuggest Alternative": return "💡";
+                case "Yerel Öneriler": return "🏠";
+                default: return "🔧";
+            }
+        }
+        
+        // AJAX ile Flask'a istek gönderme - Keyword Araştırma
+        document.getElementById("countryForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const resultsDiv = document.getElementById("countryResults");
+            resultsDiv.innerHTML = '<div class="status-message status-loading loading-pulse"><span>⏳</span>Veriler yükleniyor...</div>';
+            
+            try {
+                const response = await fetch("/get_keywords", { 
+                    method: "POST", 
+                    body: new FormData(e.target) 
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const result = data.data;
+                    
+                    // Rate limit kontrolü
+                    if (result.debug_info && result.debug_info.includes("Rate Limit")) {
+                        resultsDiv.innerHTML = `
+                            <div class="status-message status-warning">
+                                <span>⚠️</span>
+                                <div>
+                                    <strong>API Rate Limit</strong><br>
+                                    Google Trends API rate limit'ine takıldık. Lütfen 1-2 dakika bekleyip tekrar deneyin.
+                                </div>
+                            </div>
+                            <button onclick="location.reload()" class="btn btn-secondary">🔄 Sayfayı Yenile</button>
+                        `;
+                        return;
+                    }
+                    
+                    // Başarılı sonuçları göster
+                    let html = `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3 class="result-title">${result.keyword} - ${result.country}</h3>
+                                <div class="api-badge ${getApiBadgeClass(result.api_used)}">
+                                    <span>${getApiIcon(result.api_used)}</span>
+                                    ${result.api_used}
+                                </div>
+                            </div>
+                    `;
+                    
+                    html += `<p><strong>📈 İlgi Düzeyi:</strong> ${result.interest_data}</p>`;
+                    
+                    if (result.related_queries.top || result.related_queries.rising) {
+                        if (result.related_queries.top) {
+                            html += '<h4>🔥 Popüler İlgili Sorgular:</h4>';
+                            html += '<ul class="query-list">';
+                            result.related_queries.top.forEach(query => {
+                                html += `
+                                    <li class="query-item">
+                                        <span class="query-text">${query.query}</span>
+                                        <span class="query-value">${query.value}</span>
+                                    </li>
+                                `;
+                            });
+                            html += '</ul>';
+                        }
+                        
+                        if (result.related_queries.rising) {
+                            html += '<h4>📈 Yükselen İlgili Sorgular:</h4>';
+                            html += '<ul class="query-list">';
+                            result.related_queries.rising.forEach(query => {
+                                html += `
+                                    <li class="query-item">
+                                        <span class="query-text">${query.query}</span>
+                                        <span class="query-value">${query.value}</span>
+                                    </li>
+                                `;
+                            });
+                            html += '</ul>';
+                        }
+                    } else if (result.related_queries.message) {
+                        html += `<div class="status-message status-warning"><span>⚠️</span>${result.related_queries.message}</div>`;
+                        
+                        // Önerileri göster
+                        if (result.suggestions && result.suggestions.length > 0) {
+                            html += '<div class="suggestions">';
+                            html += '<h4>💡 Önerilen Keyword\'ler:</h4>';
+                            html += '<div class="suggestion-list">';
+                            result.suggestions.forEach(suggestion => {
+                                html += `<a href="#" class="suggestion-tag" onclick="tryKeyword('${suggestion}')">${suggestion}</a>`;
+                            });
+                            html += '</div>';
+                            html += '<p><em>⬆️ Yukarıdaki önerilerden birine tıklayarak deneyebilirsiniz.</em></p>';
+                            html += '</div>';
+                        }
+                    }
+                    
+                    // Debug bilgisini göster
+                    if (result.debug_info) {
+                        html += `<div class="debug-info">🔧 ${result.debug_info}</div>`;
+                    }
+                    
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Hata: ${data.error}</div>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Bağlantı hatası: ${error.message}</div>`;
+            }
+        });
+
+        // SEO Analiz Form
+        document.getElementById("keywordForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const resultsDiv = document.getElementById("keywordResults");
+            resultsDiv.innerHTML = '<div class="status-message status-loading loading-pulse"><span>⏳</span>SEO analizi yapılıyor...</div>';
+            
+            try {
+                const response = await fetch("/get_keywords", { 
+                    method: "POST", 
+                    body: new FormData(e.target) 
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const result = data.data;
+                    
+                    let html = `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3 class="result-title">${result.keyword} - ${result.country}</h3>
+                                <div class="api-badge ${getApiBadgeClass(result.api_used)}">
+                                    <span>${getApiIcon(result.api_used)}</span>
+                                    ${result.api_used}
+                                </div>
+                            </div>
+                    `;
+                    
+                    if (result.related_queries.message) {
+                        html += `<div class="status-message status-warning"><span>⚠️</span>${result.related_queries.message}</div>`;
+                    } else {
+                        if (result.related_queries.top) {
+                            html += '<h4>🔥 En Popüler Sorgular:</h4>';
+                            html += '<ul class="query-list">';
+                            result.related_queries.top.forEach(item => {
+                                html += `
+                                    <li class="query-item">
+                                        <span class="query-text">${item.query}</span>
+                                        <span class="query-value">${item.value}</span>
+                                    </li>
+                                `;
+                            });
+                            html += '</ul>';
+                        }
+                        
+                        if (result.related_queries.rising) {
+                            html += '<h4>📈 Yükselen Sorgular:</h4>';
+                            html += '<ul class="query-list">';
+                            result.related_queries.rising.forEach(item => {
+                                html += `
+                                    <li class="query-item">
+                                        <span class="query-text">${item.query}</span>
+                                        <span class="query-value">${item.value}</span>
+                                    </li>
+                                `;
+                            });
+                            html += '</ul>';
+                        }
+                    }
+                    
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Hata: ${data.error}</div>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Bağlantı hatası: ${error.message}</div>`;
+            }
+        });
+
+        // SEO Domain Arama Form
+        document.getElementById("seoDomainsForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const resultsDiv = document.getElementById("seoDomainsResults");
+            resultsDiv.innerHTML = '<div class="status-message status-loading loading-pulse"><span>⏳</span>SEO domain\'leri aranıyor...</div>';
+            
+            try {
+                const response = await fetch("/find_seo_domains", { 
+                    method: "POST", 
+                    body: new FormData(e.target) 
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    let html = `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3 class="result-title">💎 "${data.keyword}" için SEO Domain'leri</h3>
+                                <div class="status-message status-success">
+                                    <span>✅</span>
+                                    ${data.total_found} domain bulundu
+                                </div>
+                            </div>
+                    `;
+                    
+                    if (data.domains && data.domains.length > 0) {
+                        html += '<div class="domain-list">';
+                        
+                        data.domains.forEach((domain, index) => {
+                            // SEO skoru rengi
+                            let scoreClass = 'score-low';
+                            if (domain.seo_score >= 70) scoreClass = 'score-high';
+                            else if (domain.seo_score >= 50) scoreClass = 'score-medium';
+                            
+                            // Availability durumu
+                            let availabilityIcon = '❓';
+                            let availabilityClass = 'status-unknown';
+                            if (domain.availability === 'available') {
+                                availabilityIcon = '✅';
+                                availabilityClass = 'status-available';
+                            } else if (domain.availability === 'registered') {
+                                availabilityIcon = '❌';
+                                availabilityClass = 'status-registered';
+                            }
+                            
+                            html += `
+                                <div class="domain-item">
+                                    <div class="domain-header">
+                                        <div class="domain-name">
+                                            <strong>${domain.domain}</strong>
+                                            <span class="availability-badge ${availabilityClass}">
+                                                ${availabilityIcon} ${domain.availability}
+                                            </span>
+                                        </div>
+                                        <div class="domain-scores">
+                                            <div class="seo-score ${scoreClass}">
+                                                SEO: ${domain.seo_score}/100
+                                            </div>
+                                            <div class="domain-value">
+                                                💰 ${domain.estimated_value}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="domain-details">
+                                        <div class="detail-row">
+                                            <span class="detail-label">🎯 Keyword Alakası:</span>
+                                            <span class="detail-value">${domain.keyword_relevance}/100</span>
+                                        </div>
+                                        <div class="detail-row">
+                                            <span class="detail-label">🔗 Tahmini Backlink:</span>
+                                            <span class="detail-value">${domain.backlink_estimate.toLocaleString()}</span>
+                                        </div>
+                                        <div class="detail-row">
+                                            <span class="detail-label">📅 Domain Yaşı:</span>
+                                            <span class="detail-value">
+                                                ${domain.domain_age}
+                                                ${domain.creation_date ? `<br><small style="color: #6b7280;">📅 ${domain.creation_date}</small>` : ''}
+                                                ${domain.age_note ? `<br><small style="color: #6b7280;">ℹ️ ${domain.age_note}</small>` : ''}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    ${domain.availability === 'available' ? `
+                                        <div class="domain-actions">
+                                            <a href="https://www.namecheap.com/domains/registration/results/?domain=${domain.domain}" 
+                                               target="_blank" class="btn btn-secondary btn-small">
+                                                🛒 Satın Al
+                                            </a>
+                                            <a href="https://www.whois.com/whois/${domain.domain}" 
+                                               target="_blank" class="btn btn-secondary btn-small">
+                                                🔍 WHOIS
+                                            </a>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `;
+                        });
+                        
+                        html += '</div>';
+                        
+                        // Özet bilgi
+                        html += `
+                            <div class="summary-info">
+                                <h4>📊 Analiz Özeti:</h4>
+                                <ul>
+                                    <li><strong>Toplam Analiz Edilen:</strong> ${data.domains.length} domain</li>
+                                    <li><strong>Müsait Domain'ler:</strong> ${data.domains.filter(d => d.availability === 'available').length}</li>
+                                    <li><strong>Ortalama SEO Skoru:</strong> ${Math.round(data.domains.reduce((sum, d) => sum + d.seo_score, 0) / data.domains.length)}/100</li>
+                                    <li><strong>En Yüksek Değer:</strong> ${data.domains[0]?.estimated_value || 'N/A'}</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else {
+                        html += `
+                            <div class="status-message status-warning">
+                                <span>⚠️</span>
+                                Bu keyword için uygun SEO domain'i bulunamadı. Farklı bir keyword deneyin.
+                            </div>
+                        `;
+                    }
+                    
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Hata: ${data.error}</div>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Bağlantı hatası: ${error.message}</div>`;
+            }
+        });
+
+        // Domain Kontrol Form
+        document.getElementById("domainForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const resultsDiv = document.getElementById("domainResults");
+            resultsDiv.innerHTML = '<div class="status-message status-loading loading-pulse"><span>⏳</span>Domain kontrol ediliyor...</div>';
+            
+            try {
+                const response = await fetch("/check_domain", { 
+                    method: "POST", 
+                    body: new FormData(e.target) 
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    let html = `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3 class="result-title">🌐 ${data.domain}</h3>
+                                <div class="status-message status-success">
+                                    <span>✅</span>
+                                    ${data.status}
+                                </div>
+                            </div>
+                    `;
+                    
+                    if (data.details && Object.keys(data.details).length > 0) {
+                        html += '<div style="margin-top: 1rem;">';
+                        for (const [key, value] of Object.entries(data.details)) {
+                            html += `<p><strong>${key}:</strong> ${value}</p>`;
+                        }
+                        html += '</div>';
+                    }
+                    
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Hata: ${data.error}</div>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Bağlantı hatası: ${error.message}</div>`;
+            }
+        });
+
+        // Backlink Domain Arama Form
+        document.getElementById("backlinkDomainsForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const resultsDiv = document.getElementById("backlinkDomainsResults");
+            resultsDiv.innerHTML = '<div class="status-message status-loading loading-pulse"><span>⏳</span>Backlink domain\'leri aranıyor...</div>';
+            
+            try {
+                const response = await fetch("/find_backlink_domains", { 
+                    method: "POST", 
+                    body: new FormData(e.target) 
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    let html = `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3 class="result-title">🔗 "${data.keyword}" için Backlink Domain'leri</h3>
+                                <div class="status-message status-success">
+                                    <span>✅</span>
+                                    ${data.total_found} domain bulundu
+                                </div>
+                            </div>
+                    `;
+                    
+                    if (data.domains && data.domains.length > 0) {
+                        html += '<div class="domain-list">';
+                        
+                        data.domains.forEach((domain, index) => {
+                            // Backlink kalite skoru rengi
+                            let qualityClass = 'score-low';
+                            if (domain.backlink_quality >= 70) qualityClass = 'score-high';
+                            else if (domain.backlink_quality >= 50) qualityClass = 'score-medium';
+                            
+                            // Availability durumu
+                            let availabilityIcon = '❓';
+                            let availabilityClass = 'status-unknown';
+                            if (domain.availability === 'available') {
+                                availabilityIcon = '✅';
+                                availabilityClass = 'status-available';
+                            } else if (domain.availability === 'registered') {
+                                availabilityIcon = '❌';
+                                availabilityClass = 'status-registered';
+                            }
+                            
+                            html += `
+                                <div class="domain-item">
+                                    <div class="domain-header">
+                                        <div class="domain-name">
+                                            <strong>${domain.domain}</strong>
+                                            <span class="availability-badge ${availabilityClass}">
+                                                ${availabilityIcon} ${domain.availability}
+                                            </span>
+                                        </div>
+                                        <div class="domain-scores">
+                                            <div class="backlink-count">
+                                                🔗 ${domain.backlink_count.toLocaleString()}
+                                            </div>
+                                            <div class="backlink-quality ${qualityClass}">
+                                                Kalite: ${domain.backlink_quality}/100
+                                            </div>
+                                            <div class="domain-value">
+                                                💰 ${domain.estimated_value}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="domain-details">
+                                        <div class="detail-row">
+                                            <span class="detail-label">🎯 Keyword Alakası:</span>
+                                            <span class="detail-value">${domain.keyword_relevance}/100</span>
+                                        </div>
+                                        <div class="detail-row">
+                                            <span class="detail-label">🌐 Referring Domains:</span>
+                                            <span class="detail-value">${domain.referring_domains.toLocaleString()}</span>
+                                        </div>
+                                        <div class="detail-row">
+                                            <span class="detail-label">📊 Domain Authority:</span>
+                                            <span class="detail-value">${domain.domain_authority}/100</span>
+                                        </div>
+                                        <div class="detail-row">
+                                            <span class="detail-label">📅 Domain Yaşı:</span>
+                                            <span class="detail-value">
+                                                ${domain.domain_age}
+                                                ${domain.creation_date ? `<br><small style="color: #6b7280;">📅 ${domain.creation_date}</small>` : ''}
+                                                ${domain.age_note ? `<br><small style="color: #6b7280;">ℹ️ ${domain.age_note}</small>` : ''}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    ${domain.availability === 'available' ? `
+                                        <div class="domain-actions">
+                                            <a href="https://www.namecheap.com/domains/registration/results/?domain=${domain.domain}" 
+                                               target="_blank" class="btn btn-secondary btn-small">
+                                                🛒 Satın Al
+                                            </a>
+                                            <a href="https://www.whois.com/whois/${domain.domain}" 
+                                               target="_blank" class="btn btn-secondary btn-small">
+                                                🔍 WHOIS
+                                            </a>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `;
+                        });
+                        
+                        html += '</div>';
+                        
+                        // Özet bilgi
+                        html += `
+                            <div class="summary-info">
+                                <h4>📊 Backlink Analiz Özeti:</h4>
+                                <ul>
+                                    <li><strong>Toplam Analiz Edilen:</strong> ${data.domains.length} domain</li>
+                                    <li><strong>Müsait Domain'ler:</strong> ${data.domains.filter(d => d.availability === 'available').length}</li>
+                                    <li><strong>Toplam Backlink:</strong> ${data.domains.reduce((sum, d) => sum + d.backlink_count, 0).toLocaleString()}</li>
+                                    <li><strong>Ortalama Kalite Skoru:</strong> ${Math.round(data.domains.reduce((sum, d) => sum + d.backlink_quality, 0) / data.domains.length)}/100</li>
+                                    <li><strong>En Yüksek Değer:</strong> ${data.domains[0]?.estimated_value || 'N/A'}</li>
+                                </ul>
+                            </div>
+                        `;
+                    } else {
+                        html += `
+                            <div class="status-message status-warning">
+                                <span>⚠️</span>
+                                Bu keyword için yeterli backlink'e sahip domain bulunamadı. Farklı bir keyword deneyin.
+                            </div>
+                        `;
+                    }
+                    
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Hata: ${data.error}</div>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Bağlantı hatası: ${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>
