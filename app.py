@@ -855,6 +855,36 @@ def find_seo_domains():
         print(f"Error in find_seo_domains: {error_msg}")
         return jsonify({"success": False, "error": error_msg})
 
+def simulate_domain_availability(domain):
+    """Domain müsaitlik durumunu simüle eder"""
+    try:
+        # Gerçek WHOIS sorgusu yapmak yerine simülasyon
+        # Bazı domain'leri müsait olarak göster
+        
+        # Domain karakteristiklerine göre müsaitlik hesapla
+        availability_chance = 0.3  # %30 müsait olma şansı
+        
+        # Kısa domain'ler daha az müsait
+        if len(domain.split('.')[0]) <= 6:
+            availability_chance = 0.1
+        elif len(domain.split('.')[0]) <= 8:
+            availability_chance = 0.2
+        elif len(domain.split('.')[0]) >= 12:
+            availability_chance = 0.5
+        
+        # Özel karakterler varsa daha müsait
+        if '-' in domain or any(char.isdigit() for char in domain):
+            availability_chance += 0.2
+        
+        # Rastgele müsaitlik durumu
+        is_available = random.random() < availability_chance
+        
+        return is_available
+        
+    except Exception as e:
+        # Hata durumunda %50 şansla müsait göster
+        return random.random() < 0.5
+
 def simulate_backlink_data(domain, keyword):
     """Backlink verilerini simüle eder"""
     try:
