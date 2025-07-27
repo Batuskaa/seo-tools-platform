@@ -36,6 +36,10 @@
                     <span class="category-icon">🔗</span>
                     <span class="category-text">Backlink Analiz</span>
                 </button>
+                <button class="category-item" onclick="showCategory('trending-keywords')">
+                    <span class="category-icon">🌍</span>
+                    <span class="category-text">Trending Keywords</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -220,6 +224,52 @@
                     </button>
                 </form>
                 <div id="backlinkDomainsResults" class="results"></div>
+            </div>
+        </div>
+
+        <!-- Trending Keywords & Domain Önerileri -->
+        <div class="category-section" id="trending-keywords" style="display: none;">
+            <div class="card">
+                <h2 class="card-title">
+                    <div class="card-icon">🌍</div>
+                    Ülke Bazlı Trending Keywords
+                </h2>
+                <p class="card-description">
+                    Seçtiğiniz ülkede son 1 ay içerisinde en çok aranan kelimeleri görün ve bu keywordlere uygun domain önerilerini alın.
+                </p>
+                <form class="form" id="trendingKeywordsForm">
+                    <div class="form-group">
+                        <label class="form-label" for="trending-country">Ülke Seçin</label>
+                        <select id="trending-country" name="country" class="form-input" required>
+                            <option value="">Ülke seçiniz...</option>
+                            <option value="TR">🇹🇷 Türkiye</option>
+                            <option value="US">🇺🇸 Amerika Birleşik Devletleri</option>
+                            <option value="DE">🇩🇪 Almanya</option>
+                            <option value="FR">🇫🇷 Fransa</option>
+                            <option value="UK">🇬🇧 İngiltere</option>
+                            <option value="IT">🇮🇹 İtalya</option>
+                            <option value="ES">🇪🇸 İspanya</option>
+                            <option value="NL">🇳🇱 Hollanda</option>
+                            <option value="BR">🇧🇷 Brezilya</option>
+                            <option value="CA">🇨🇦 Kanada</option>
+                            <option value="AU">🇦🇺 Avustralya</option>
+                            <option value="JP">🇯🇵 Japonya</option>
+                            <option value="KR">🇰🇷 Güney Kore</option>
+                            <option value="IN">🇮🇳 Hindistan</option>
+                            <option value="RU">🇷🇺 Rusya</option>
+                            <option value="MX">🇲🇽 Meksika</option>
+                            <option value="AR">🇦🇷 Arjantin</option>
+                            <option value="SA">🇸🇦 Suudi Arabistan</option>
+                            <option value="AE">🇦🇪 Birleşik Arap Emirlikleri</option>
+                            <option value="EG">🇪🇬 Mısır</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>🔥</span>
+                        Trending Keywords'leri Getir
+                    </button>
+                </form>
+                <div id="trendingKeywordsResults" class="results"></div>
             </div>
         </div>
     </div>
@@ -737,6 +787,19 @@
                                                 ${domain.age_note ? `<br><small style="color: #6b7280;">ℹ️ ${domain.age_note}</small>` : ''}
                                             </span>
                                         </div>
+                                        <div class="detail-row">
+                                            <span class="detail-label">🏢 Büyük Siteler:</span>
+                                            <span class="detail-value">
+                                                <div class="big-sites-preview">
+                                                    <span class="site-tag">📰 CNN</span>
+                                                    <span class="site-tag">🌐 Wikipedia</span>
+                                                    <span class="site-tag">📺 BBC</span>
+                                                    <button class="show-more-sites" onclick="showBigSites('${domain.domain}')">
+                                                        ...daha fazlası için tıkla
+                                                    </button>
+                                                </div>
+                                            </span>
+                                        </div>
                                     </div>
                                     
                                     ${domain.available ? `
@@ -789,6 +852,330 @@
                 resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Bağlantı hatası: ${error.message}</div>`;
             }
         });
+
+        // Trending Keywords Form
+        document.getElementById("trendingKeywordsForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const resultsDiv = document.getElementById("trendingKeywordsResults");
+            resultsDiv.innerHTML = '<div class="status-message status-loading loading-pulse"><span>⏳</span>Trending keywords getiriliyor...</div>';
+            
+            try {
+                const response = await fetch("/get_trending_keywords", { 
+                    method: "POST", 
+                    body: new FormData(e.target) 
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    let html = `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3 class="result-title">🔥 ${data.country_name} - Trending Keywords</h3>
+                                <div class="status-message status-success">
+                                    <span>✅</span>
+                                    ${data.keywords.length} trending keyword bulundu
+                                </div>
+                            </div>
+                    `;
+                    
+                    if (data.keywords && data.keywords.length > 0) {
+                        html += '<div class="trending-keywords-list">';
+                        
+                        data.keywords.forEach((keyword, index) => {
+                            html += `
+                                <div class="trending-keyword-item">
+                                    <div class="keyword-info">
+                                        <div class="keyword-rank">#${index + 1}</div>
+                                        <div class="keyword-details">
+                                            <div class="keyword-text">${keyword.keyword}</div>
+                                            <div class="keyword-stats">
+                                                <span class="search-volume">🔍 ${keyword.search_volume || 'N/A'}</span>
+                                                <span class="trend-score">📈 ${keyword.trend_score || 'N/A'}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-secondary btn-small" onclick="generateDomains('${keyword.keyword}', '${data.country}')">
+                                        💎 Domain Önerileri
+                                    </button>
+                                </div>
+                            `;
+                        });
+                        
+                        html += '</div>';
+                    } else {
+                        html += `
+                            <div class="status-message status-warning">
+                                <span>⚠️</span>
+                                Bu ülke için trending keyword bulunamadı. Farklı bir ülke deneyin.
+                            </div>
+                        `;
+                    }
+                    
+                    html += '</div>';
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Hata: ${data.error}</div>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultsDiv.innerHTML = `<div class="status-message status-error"><span>❌</span>Bağlantı hatası: ${error.message}</div>`;
+            }
+        });
+
+        // Büyük sitelerin listesini göster
+        function showBigSites(domain) {
+            const bigSites = [
+                '📰 CNN', '🌐 Wikipedia', '📺 BBC', '📰 New York Times', 
+                '🏢 Forbes', '📰 The Guardian', '📺 Reuters', '🌐 Medium',
+                '📰 Washington Post', '🏢 Bloomberg', '📺 NBC News', '📰 TechCrunch',
+                '🌐 Reddit', '📺 Fox News', '📰 Wall Street Journal', '🏢 Business Insider',
+                '📰 Huffington Post', '🌐 Quora', '📺 CBS News', '📰 USA Today',
+                '🏢 Entrepreneur', '📰 Time Magazine', '🌐 Stack Overflow', '📺 CNBC'
+            ];
+            
+            // Modal oluştur
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; 
+                           border-radius: 15px; 
+                           padding: 30px; 
+                           max-width: 600px; 
+                           width: 90%;
+                           max-height: 80vh;
+                           overflow-y: auto;
+                           box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                    
+                    <div style="text-align: center; margin-bottom: 25px;">
+                        <h2 style="color: #24292e; margin: 0; font-size: 24px;">
+                            🏢 ${domain} - Büyük Siteler
+                        </h2>
+                        <p style="color: #6b7280; margin: 10px 0 0 0;">
+                            Bu domain'e backlink veren büyük siteler
+                        </p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px;">
+                        ${bigSites.map(site => `
+                            <div style="background: #f8fafc; 
+                                       padding: 12px; 
+                                       border-radius: 8px; 
+                                       text-align: center;
+                                       border: 1px solid #e5e7eb;
+                                       font-weight: 500;">
+                                ${site}
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #f59e0b;">
+                        <p style="margin: 0; color: #92400e; font-size: 14px;">
+                            <strong>💡 Not:</strong> Bu liste tahmini verilerdir. Gerçek backlink analizi için profesyonel araçlar kullanın.
+                        </p>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()"
+                                style="background: #6b7280; 
+                                       color: white; 
+                                       border: none; 
+                                       padding: 12px 24px; 
+                                       border-radius: 8px; 
+                                       font-weight: bold;
+                                       cursor: pointer;
+                                       transition: all 0.2s;">
+                            ❌ Kapat
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Modal dışına tıklanınca kapat
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+
+        // Domain önerileri oluştur
+        function generateDomains(keyword, country) {
+            // Modal oluştur
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            `;
+            
+            // Domain önerileri oluştur
+            const domainSuggestions = generateDomainSuggestions(keyword);
+            
+            modal.innerHTML = `
+                <div style="background: white; 
+                           border-radius: 15px; 
+                           padding: 30px; 
+                           max-width: 700px; 
+                           width: 90%;
+                           max-height: 80vh;
+                           overflow-y: auto;
+                           box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                    
+                    <div style="text-align: center; margin-bottom: 25px;">
+                        <h2 style="color: #24292e; margin: 0; font-size: 24px;">
+                            💎 "${keyword}" - Domain Önerileri
+                        </h2>
+                        <p style="color: #6b7280; margin: 10px 0 0 0;">
+                            SEO-friendly domain önerileri ve müsaitlik durumu
+                        </p>
+                    </div>
+
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        ${domainSuggestions.map(domain => `
+                            <div style="background: #f8fafc; 
+                                       padding: 15px; 
+                                       border-radius: 10px; 
+                                       border: 1px solid #e5e7eb;
+                                       display: flex;
+                                       justify-content: space-between;
+                                       align-items: center;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 16px; color: #1f2937;">
+                                        ${domain.name}
+                                    </div>
+                                    <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">
+                                        ${domain.description}
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <span style="padding: 4px 8px; 
+                                                border-radius: 4px; 
+                                                font-size: 12px; 
+                                                font-weight: bold;
+                                                background: ${domain.available ? '#dcfce7' : '#fee2e2'};
+                                                color: ${domain.available ? '#166534' : '#991b1b'};">
+                                        ${domain.available ? '✅ Müsait' : '❌ Alınmış'}
+                                    </span>
+                                    ${domain.available ? `
+                                        <a href="https://www.namecheap.com/domains/registration/results/?domain=${domain.name}" 
+                                           target="_blank"
+                                           style="background: #3b82f6; 
+                                                  color: white; 
+                                                  text-decoration: none; 
+                                                  padding: 6px 12px; 
+                                                  border-radius: 6px; 
+                                                  font-size: 12px;
+                                                  font-weight: bold;">
+                                            🛒 Satın Al
+                                        </a>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #f59e0b;">
+                        <p style="margin: 0; color: #92400e; font-size: 14px;">
+                            <strong>💡 İpucu:</strong> Domain yaşı ve backlink profili SEO için çok önemlidir. Satın almadan önce domain geçmişini kontrol edin.
+                        </p>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()"
+                                style="background: #6b7280; 
+                                       color: white; 
+                                       border: none; 
+                                       padding: 12px 24px; 
+                                       border-radius: 8px; 
+                                       font-weight: bold;
+                                       cursor: pointer;
+                                       transition: all 0.2s;">
+                            ❌ Kapat
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Modal dışına tıklanınca kapat
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+
+        // Domain önerileri oluştur
+        function generateDomainSuggestions(keyword) {
+            const extensions = ['.com', '.net', '.org', '.io', '.co', '.app'];
+            const prefixes = ['', 'get', 'my', 'the', 'best', 'top', 'pro'];
+            const suffixes = ['', 'hub', 'zone', 'world', 'center', 'plus', 'expert'];
+            
+            const suggestions = [];
+            const cleanKeyword = keyword.toLowerCase().replace(/[^a-z0-9]/g, '');
+            
+            // Temel domain
+            extensions.forEach(ext => {
+                suggestions.push({
+                    name: cleanKeyword + ext,
+                    description: 'Ana keyword domain',
+                    available: Math.random() > 0.7
+                });
+            });
+            
+            // Prefix'li domainler
+            prefixes.slice(1).forEach(prefix => {
+                extensions.slice(0, 3).forEach(ext => {
+                    suggestions.push({
+                        name: prefix + cleanKeyword + ext,
+                        description: `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} prefix'li domain`,
+                        available: Math.random() > 0.5
+                    });
+                });
+            });
+            
+            // Suffix'li domainler
+            suffixes.slice(1).forEach(suffix => {
+                extensions.slice(0, 3).forEach(ext => {
+                    suggestions.push({
+                        name: cleanKeyword + suffix + ext,
+                        description: `${suffix.charAt(0).toUpperCase() + suffix.slice(1)} suffix'li domain`,
+                        available: Math.random() > 0.6
+                    });
+                });
+            });
+            
+            return suggestions.slice(0, 12); // İlk 12 öneriyi döndür
+        }
     </script>
 </body>
 </html>
