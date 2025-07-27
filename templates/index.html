@@ -680,16 +680,16 @@
                         data.domains.forEach((domain, index) => {
                             // Backlink kalite skoru rengi
                             let qualityClass = 'score-low';
-                            if (domain.backlink_quality >= 70) qualityClass = 'score-high';
-                            else if (domain.backlink_quality >= 50) qualityClass = 'score-medium';
+                            if (domain.quality_score >= 70) qualityClass = 'score-high';
+                            else if (domain.quality_score >= 50) qualityClass = 'score-medium';
                             
                             // Availability durumu
                             let availabilityIcon = '❓';
                             let availabilityClass = 'status-unknown';
-                            if (domain.availability === 'available') {
+                            if (domain.available) {
                                 availabilityIcon = '✅';
                                 availabilityClass = 'status-available';
-                            } else if (domain.availability === 'registered') {
+                            } else {
                                 availabilityIcon = '❌';
                                 availabilityClass = 'status-registered';
                             }
@@ -700,18 +700,18 @@
                                         <div class="domain-name">
                                             <strong>${domain.domain}</strong>
                                             <span class="availability-badge ${availabilityClass}">
-                                                ${availabilityIcon} ${domain.availability}
+                                                ${availabilityIcon} ${domain.available ? 'Müsait' : 'Alınmış'}
                                             </span>
                                         </div>
                                         <div class="domain-scores">
                                             <div class="backlink-count">
-                                                🔗 ${domain.backlink_count.toLocaleString()}
+                                                🔗 ${(domain.backlinks || 0).toLocaleString()}
                                             </div>
                                             <div class="backlink-quality ${qualityClass}">
-                                                Kalite: ${domain.backlink_quality}/100
+                                                Kalite: ${domain.quality_score || 0}/100
                                             </div>
                                             <div class="domain-value">
-                                                💰 ${domain.estimated_value}
+                                                💰 ${domain.estimated_value || 'N/A'}
                                             </div>
                                         </div>
                                     </div>
@@ -719,27 +719,27 @@
                                     <div class="domain-details">
                                         <div class="detail-row">
                                             <span class="detail-label">🎯 Keyword Alakası:</span>
-                                            <span class="detail-value">${domain.keyword_relevance}/100</span>
+                                            <span class="detail-value">${domain.keyword_relevance || 0}/100</span>
                                         </div>
                                         <div class="detail-row">
                                             <span class="detail-label">🌐 Referring Domains:</span>
-                                            <span class="detail-value">${domain.referring_domains.toLocaleString()}</span>
+                                            <span class="detail-value">${(domain.referring_domains || 0).toLocaleString()}</span>
                                         </div>
                                         <div class="detail-row">
                                             <span class="detail-label">📊 Domain Authority:</span>
-                                            <span class="detail-value">${domain.domain_authority}/100</span>
+                                            <span class="detail-value">${domain.domain_authority || 0}/100</span>
                                         </div>
                                         <div class="detail-row">
                                             <span class="detail-label">📅 Domain Yaşı:</span>
                                             <span class="detail-value">
-                                                ${domain.domain_age}
+                                                ${domain.domain_age || 'Bilinmiyor'}
                                                 ${domain.creation_date ? `<br><small style="color: #6b7280;">📅 ${domain.creation_date}</small>` : ''}
                                                 ${domain.age_note ? `<br><small style="color: #6b7280;">ℹ️ ${domain.age_note}</small>` : ''}
                                             </span>
                                         </div>
                                     </div>
                                     
-                                    ${domain.availability === 'available' ? `
+                                    ${domain.available ? `
                                         <div class="domain-actions">
                                             <a href="https://www.namecheap.com/domains/registration/results/?domain=${domain.domain}" 
                                                target="_blank" class="btn btn-secondary btn-small">
@@ -763,9 +763,9 @@
                                 <h4>📊 Backlink Analiz Özeti:</h4>
                                 <ul>
                                     <li><strong>Toplam Analiz Edilen:</strong> ${data.domains.length} domain</li>
-                                    <li><strong>Müsait Domain'ler:</strong> ${data.domains.filter(d => d.availability === 'available').length}</li>
-                                    <li><strong>Toplam Backlink:</strong> ${data.domains.reduce((sum, d) => sum + d.backlink_count, 0).toLocaleString()}</li>
-                                    <li><strong>Ortalama Kalite Skoru:</strong> ${Math.round(data.domains.reduce((sum, d) => sum + d.backlink_quality, 0) / data.domains.length)}/100</li>
+                                    <li><strong>Müsait Domain'ler:</strong> ${data.domains.filter(d => d.available).length}</li>
+                                    <li><strong>Toplam Backlink:</strong> ${data.domains.reduce((sum, d) => sum + (d.backlinks || 0), 0).toLocaleString()}</li>
+                                    <li><strong>Ortalama Kalite Skoru:</strong> ${Math.round(data.domains.reduce((sum, d) => sum + (d.quality_score || 0), 0) / data.domains.length)}/100</li>
                                     <li><strong>En Yüksek Değer:</strong> ${data.domains[0]?.estimated_value || 'N/A'}</li>
                                 </ul>
                             </div>
