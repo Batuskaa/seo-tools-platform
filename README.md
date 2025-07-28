@@ -1,63 +1,117 @@
-# SEO Araçları - Keyword & Domain Analiz Platformu
+# SEO & Domain Analysis Tool
 
-Bu uygulama, SEO uzmanları ve dijital pazarlama profesyonelleri için geliştirilmiş kapsamlı bir analiz platformudur.
+Bu proje, kapsamlı SEO analizi, domain araçları ve tema indirme özelliklerini içeren bir web uygulamasıdır.
 
-## 🚀 Özellikler
+## Özellikler
 
-### 🔍 Keyword Araştırma
-- Google Trends entegrasyonu
-- Pytrends API ile trend analizi
-- Ülke bazlı keyword araştırması
-- Alternatif keyword önerileri
+- 🔍 **Keyword Research**: Anahtar kelime araştırması ve analizi
+- 📊 **SEO Analysis**: Detaylı SEO analizi ve öneriler
+- 🌐 **Domain Tools**: Domain analizi ve öneriler
+- 🔗 **Backlink Analysis**: Backlink analizi ve büyük site takibi
+- 📈 **Trending Keywords**: Popüler anahtar kelimeler
+- 🎨 **Theme Downloader**: ThemeForest, Envato tema indirme
 
-### 📊 SEO Analiz
-- Domain SEO skoru hesaplama
-- Keyword relevans analizi
-- Backlink tahmin sistemi
-- Domain yaşı analizi
+## Kurulum
 
-### 🌐 Domain Araçları
-- SEO domain arama ve analiz
-- Domain müsaitlik kontrolü
-- WHOIS sorguları
-- Domain değer tahmini
-
-### 🔗 Backlink Analiz
-- Keyword bazlı backlink domain arama
-- Backlink kalite skoru
-- Domain Authority analizi
-- Referring domains sayısı
-
-## 🛠️ Teknolojiler
-
-- **Backend**: Flask (Python)
-- **Frontend**: HTML, CSS, JavaScript
-- **APIs**: Google Trends, WHOIS
-- **Deployment**: Vercel
-
-## 📦 Kurulum
+### Yerel Geliştirme
 
 ```bash
+# Bağımlılıkları yükle
 pip install -r requirements.txt
+
+# Uygulamayı çalıştır
 python app.py
 ```
 
-## 🌍 Canlı Demo
+### Vercel Deployment
 
-Uygulama Vercel üzerinde yayında: [SEO Araçları](https://your-vercel-url.vercel.app)
+#### Otomatik Deployment (Önerilen)
 
-## 📝 Kullanım
+1. **GitHub Repository Oluştur:**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/kullaniciadi/repo-adi.git
+   git push -u origin main
+   ```
 
-1. **Keyword Araştırma**: Keyword girin ve trend analizini görün
-2. **SEO Analiz**: Domain'inizi analiz edin
-3. **Domain Araçları**: Yeni domain'ler keşfedin
-4. **Backlink Analiz**: En iyi backlink fırsatlarını bulun
+2. **Vercel'e Bağla:**
+   - [Vercel Dashboard](https://vercel.com/dashboard)'a git
+   - "New Project" tıkla
+   - GitHub repository'nizi seç
+   - Otomatik deployment aktif olacak
 
-## 🔧 Geliştirme
+#### Manuel Deployment
 
-Bu proje açık kaynak kodludur ve katkılara açıktır.
+1. **Vercel CLI Kur:**
+   ```bash
+   npm install -g vercel
+   ```
 
----
+2. **Deploy Et:**
+   ```bash
+   vercel --prod
+   ```
 
-**Geliştirici**: Trae AI ile geliştirildi
-**Lisans**: MIT
+#### GitHub Actions ile Otomatik Deployment
+
+Repository'nizde şu secrets'ları ekleyin:
+- `VERCEL_TOKEN`: Vercel hesabınızdan alın
+- `ORG_ID`: Vercel organization ID
+- `PROJECT_ID`: Vercel project ID
+
+## Vercel Yapılandırması
+
+Proje aşağıdaki Vercel özelliklerini kullanır:
+
+- **Auto Deployments**: GitHub push'larda otomatik deployment
+- **Python Runtime**: Python 3.9
+- **Lambda Size**: 50MB (tema indirme için)
+- **Max Duration**: 30 saniye
+- **Static Files**: `/static` klasörü optimize edildi
+
+## Sorun Giderme
+
+### Vercel Otomatik Güncellenmeme Sorunu
+
+1. **GitHub Integration Kontrol:**
+   - Vercel Dashboard > Project Settings > Git
+   - "Auto Deployments" aktif olmalı
+
+2. **Branch Ayarları:**
+   - Production branch: `main` veya `master`
+   - Preview branches aktif olmalı
+
+3. **Build Ayarları:**
+   - Build Command: (boş bırak)
+   - Output Directory: (boş bırak)
+   - Install Command: `pip install -r requirements.txt`
+
+4. **Environment Variables:**
+   - Gerekli environment variable'lar eklenmiş olmalı
+
+### Deployment Hataları
+
+- **Build Timeout**: `vercel.json`'da `maxDuration` artırın
+- **Memory Limit**: `maxLambdaSize` artırın
+- **Python Version**: `runtime.txt` kontrol edin
+
+## Teknolojiler
+
+- **Backend**: Flask (Python)
+- **Frontend**: HTML, CSS, JavaScript
+- **Deployment**: Vercel
+- **CI/CD**: GitHub Actions
+- **Dependencies**: 
+  - Flask 2.3.3
+  - BeautifulSoup4 4.12.2
+  - Requests 2.31.0
+  - PyTrends 4.7.3
+  - Python-whois 0.7.3
+  - DNSPython 2.4.2
+
+## Lisans
+
+Bu proje eğitim amaçlıdır. Tema indirme özelliği sadece demo amaçlıdır ve yasal lisanslar gereklidir.

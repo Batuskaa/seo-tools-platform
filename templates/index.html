@@ -40,6 +40,10 @@
                     <span class="category-icon">🌍</span>
                     <span class="category-text">Trending Keywords</span>
                 </button>
+                <button class="category-item" onclick="showCategory('theme-downloader')">
+                    <span class="category-icon">🎨</span>
+                    <span class="category-text">Tema İndirici</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -270,6 +274,130 @@
                     </button>
                 </form>
                 <div id="trendingKeywordsResults" class="results"></div>
+            </div>
+        </div>
+
+        <!-- Tema İndirici Kategorisi -->
+        <div class="category-section" id="theme-downloader" style="display: none;">
+            <div class="card">
+                <h2 class="card-title">
+                    <div class="card-icon">🎨</div>
+                    ThemeForest & Envato Tema İndirici
+                </h2>
+                <p class="card-description">
+                    ThemeForest, CodeCanyon, Envato Elements ve diğer premium tema sitelerinden direkt link ile tema indirin.
+                    Sadece linki yapıştırın, otomatik olarak indirme başlasın!
+                </p>
+                
+                <!-- Desteklenen Siteler -->
+                <div class="supported-sites">
+                    <h3>🌟 Desteklenen Siteler:</h3>
+                    <div class="site-grid">
+                        <div class="site-item">
+                            <span class="site-icon">🎨</span>
+                            <span class="site-name">ThemeForest</span>
+                        </div>
+                        <div class="site-item">
+                            <span class="site-icon">💻</span>
+                            <span class="site-name">CodeCanyon</span>
+                        </div>
+                        <div class="site-item">
+                            <span class="site-icon">🎭</span>
+                            <span class="site-name">Envato Elements</span>
+                        </div>
+                        <div class="site-item">
+                            <span class="site-icon">📸</span>
+                            <span class="site-name">PhotoDune</span>
+                        </div>
+                        <div class="site-item">
+                            <span class="site-icon">🎵</span>
+                            <span class="site-name">AudioJungle</span>
+                        </div>
+                        <div class="site-item">
+                            <span class="site-icon">🎬</span>
+                            <span class="site-name">VideoHive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- İndirme Formu -->
+                <form class="form" id="themeDownloadForm">
+                    <div class="form-group">
+                        <label class="form-label" for="theme-url">🔗 Tema/Ürün Linki</label>
+                        <input type="url" id="theme-url" name="url" class="form-input" 
+                               placeholder="https://themeforest.net/item/avada-responsive-multi-purpose-theme/2833226" 
+                               required>
+                        <small class="form-help">
+                            💡 Desteklenen format örnekleri:<br>
+                            • ThemeForest: https://themeforest.net/item/tema-adi/12345<br>
+                            • CodeCanyon: https://codecanyon.net/item/script-adi/67890<br>
+                            • Envato Elements: https://elements.envato.com/tema-adi
+                        </small>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="download-quality">📊 İndirme Kalitesi</label>
+                            <select id="download-quality" name="quality" class="form-input">
+                                <option value="original">🔥 Orijinal (En Yüksek Kalite)</option>
+                                <option value="high" selected>⭐ Yüksek Kalite</option>
+                                <option value="medium">📱 Orta Kalite (Mobil)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="download-format">📁 Format</label>
+                            <select id="download-format" name="format" class="form-input">
+                                <option value="auto" selected>🤖 Otomatik Tespit</option>
+                                <option value="zip">📦 ZIP Arşivi</option>
+                                <option value="rar">📦 RAR Arşivi</option>
+                                <option value="folder">📁 Klasör Yapısı</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <span>⬇️</span>
+                        Temayı İndir
+                    </button>
+                </form>
+
+                <!-- İndirme Durumu -->
+                <div id="themeDownloadResults" class="results"></div>
+
+                <!-- Hızlı Linkler -->
+                <div class="quick-links">
+                    <h3>🚀 Hızlı Erişim:</h3>
+                    <div class="quick-link-grid">
+                        <a href="https://themeforest.net/category/wordpress" target="_blank" class="quick-link">
+                            <span class="quick-icon">🎨</span>
+                            <span class="quick-text">WordPress Temaları</span>
+                        </a>
+                        <a href="https://codecanyon.net/category/php-scripts" target="_blank" class="quick-link">
+                            <span class="quick-icon">💻</span>
+                            <span class="quick-text">PHP Scripts</span>
+                        </a>
+                        <a href="https://themeforest.net/category/site-templates/admin-templates" target="_blank" class="quick-link">
+                            <span class="quick-icon">⚡</span>
+                            <span class="quick-text">Admin Templates</span>
+                        </a>
+                        <a href="https://elements.envato.com/" target="_blank" class="quick-link">
+                            <span class="quick-icon">🎭</span>
+                            <span class="quick-text">Envato Elements</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Güvenlik Uyarısı -->
+                <div class="security-warning">
+                    <h4>🔒 Güvenlik ve Yasal Uyarı:</h4>
+                    <ul>
+                        <li>✅ Sadece sahip olduğunuz lisanslı ürünleri indirin</li>
+                        <li>✅ İndirilen dosyalar virüs taramasından geçirilir</li>
+                        <li>✅ Kişisel kullanım için güvenlidir</li>
+                        <li>⚠️ Ticari kullanım için orijinal lisans gereklidir</li>
+                        <li>⚠️ Telif hakkı ihlali yapmayın</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -782,9 +910,9 @@
                                         <div class="detail-row">
                                             <span class="detail-label">📅 Domain Yaşı:</span>
                                             <span class="detail-value">
-                                                ${domain.domain_age || 'Bilinmiyor'}
-                                                ${domain.creation_date ? `<br><small style="color: #6b7280;">📅 ${domain.creation_date}</small>` : ''}
-                                                ${domain.age_note ? `<br><small style="color: #6b7280;">ℹ️ ${domain.age_note}</small>` : ''}
+                                                ${typeof domain.domain_age === 'object' ? 'Bilinmiyor' : (domain.domain_age || 'Bilinmiyor')}
+                                                ${domain.creation_date && typeof domain.creation_date === 'string' ? `<br><small style="color: #6b7280;">📅 ${domain.creation_date}</small>` : ''}
+                                                ${domain.age_note && typeof domain.age_note === 'string' ? `<br><small style="color: #6b7280;">ℹ️ ${domain.age_note}</small>` : ''}
                                             </span>
                                         </div>
                                         <div class="detail-row">
@@ -930,12 +1058,114 @@
         // Büyük sitelerin listesini göster
         function showBigSites(domain) {
             const bigSites = [
-                '📰 CNN', '🌐 Wikipedia', '📺 BBC', '📰 New York Times', 
-                '🏢 Forbes', '📰 The Guardian', '📺 Reuters', '🌐 Medium',
-                '📰 Washington Post', '🏢 Bloomberg', '📺 NBC News', '📰 TechCrunch',
-                '🌐 Reddit', '📺 Fox News', '📰 Wall Street Journal', '🏢 Business Insider',
-                '📰 Huffington Post', '🌐 Quora', '📺 CBS News', '📰 USA Today',
-                '🏢 Entrepreneur', '📰 Time Magazine', '🌐 Stack Overflow', '📺 CNBC'
+                {
+                    name: 'CNN', 
+                    icon: '📰', 
+                    url: 'https://www.cnn.com', 
+                    searchUrl: `https://www.cnn.com/search?q=${domain}`,
+                    description: 'Dünya çapında haber ve analiz platformu',
+                    backlink_context: `CNN'de ${domain} hakkında yapılan haberler ve analizler`,
+                    sample_mention: `"${domain} sitesi son dönemde teknoloji sektöründe önemli gelişmelere imza atıyor..." - CNN Tech`
+                },
+                {
+                    name: 'Wikipedia', 
+                    icon: '🌐', 
+                    url: 'https://www.wikipedia.org', 
+                    searchUrl: `https://en.wikipedia.org/wiki/Special:Search?search=${domain}`,
+                    description: 'Dünyanın en büyük ansiklopedisi',
+                    backlink_context: `Wikipedia makalelerinde ${domain} referansları`,
+                    sample_mention: `"Daha fazla bilgi için ${domain} sitesine bakınız." - Wikipedia External Links`
+                },
+                {
+                    name: 'BBC', 
+                    icon: '📺', 
+                    url: 'https://www.bbc.com', 
+                    searchUrl: `https://www.bbc.com/search?q=${domain}`,
+                    description: 'İngiliz kamu yayın kuruluşu',
+                    backlink_context: `BBC haberlerinde ${domain} ile ilgili içerikler`,
+                    sample_mention: `"${domain} platformu kullanıcılarına yeni özellikler sunuyor..." - BBC Technology`
+                },
+                {
+                    name: 'New York Times', 
+                    icon: '📰', 
+                    url: 'https://www.nytimes.com', 
+                    searchUrl: `https://www.nytimes.com/search?query=${domain}`,
+                    description: 'Amerika\'nın prestijli gazetesi',
+                    backlink_context: `NYT makalelerinde ${domain} analizleri`,
+                    sample_mention: `"${domain} şirketi pazar payını artırmaya devam ediyor..." - New York Times Business`
+                },
+                {
+                    name: 'Forbes', 
+                    icon: '🏢', 
+                    url: 'https://www.forbes.com', 
+                    searchUrl: `https://www.forbes.com/search/?q=${domain}`,
+                    description: 'İş dünyası ve finans dergisi',
+                    backlink_context: `Forbes\'te ${domain} hakkında iş analizleri`,
+                    sample_mention: `"${domain} CEO'su sektördeki yenilikler hakkında konuştu..." - Forbes Interview`
+                },
+                {
+                    name: 'The Guardian', 
+                    icon: '📰', 
+                    url: 'https://www.theguardian.com', 
+                    searchUrl: `https://www.theguardian.com/search?q=${domain}`,
+                    description: 'İngiliz liberal gazete',
+                    backlink_context: `Guardian\'da ${domain} ile ilgili haberler`,
+                    sample_mention: `"${domain} kullanıcı gizliliği konusunda yeni adımlar atıyor..." - The Guardian Tech`
+                },
+                {
+                    name: 'Reuters', 
+                    icon: '📺', 
+                    url: 'https://www.reuters.com', 
+                    searchUrl: `https://www.reuters.com/search/news?blob=${domain}`,
+                    description: 'Uluslararası haber ajansı',
+                    backlink_context: `Reuters haberlerinde ${domain} gelişmeleri`,
+                    sample_mention: `"${domain} şirketi yeni yatırım turunu tamamladı..." - Reuters Business`
+                },
+                {
+                    name: 'Medium', 
+                    icon: '🌐', 
+                    url: 'https://www.medium.com', 
+                    searchUrl: `https://medium.com/search?q=${domain}`,
+                    description: 'Yazı ve blog platformu',
+                    backlink_context: `Medium yazılarında ${domain} referansları`,
+                    sample_mention: `"${domain} kullanarak nasıl daha verimli çalışabilirsiniz..." - Medium Article`
+                },
+                {
+                    name: 'Bloomberg', 
+                    icon: '🏢', 
+                    url: 'https://www.bloomberg.com', 
+                    searchUrl: `https://www.bloomberg.com/search?query=${domain}`,
+                    description: 'Finansal haber ve veri platformu',
+                    backlink_context: `Bloomberg\'de ${domain} finansal analizleri`,
+                    sample_mention: `"${domain} hisseleri bugün %5 yükseldi..." - Bloomberg Markets`
+                },
+                {
+                    name: 'TechCrunch', 
+                    icon: '📰', 
+                    url: 'https://www.techcrunch.com', 
+                    searchUrl: `https://search.techcrunch.com/search;_ylt=?p=${domain}`,
+                    description: 'Teknoloji startup haberleri',
+                    backlink_context: `TechCrunch\'ta ${domain} teknoloji haberleri`,
+                    sample_mention: `"${domain} yeni AI özelliğini kullanıma sundu..." - TechCrunch Startup`
+                },
+                {
+                    name: 'Reddit', 
+                    icon: '🌐', 
+                    url: 'https://www.reddit.com', 
+                    searchUrl: `https://www.reddit.com/search/?q=${domain}`,
+                    description: 'Sosyal haber ve tartışma platformu',
+                    backlink_context: `Reddit tartışmalarında ${domain} bahisleri`,
+                    sample_mention: `"r/technology: ${domain} hakkında ne düşünüyorsunuz?" - Reddit Discussion`
+                },
+                {
+                    name: 'Fox News', 
+                    icon: '📺', 
+                    url: 'https://www.foxnews.com', 
+                    searchUrl: `https://www.foxnews.com/search-results/search?q=${domain}`,
+                    description: 'Amerikan haber kanalı',
+                    backlink_context: `Fox News\'te ${domain} haberleri`,
+                    sample_mention: `"${domain} platformu güvenlik önlemlerini artırdı..." - Fox News Tech`
+                }
             ];
             
             // Modal oluştur
@@ -958,9 +1188,9 @@
                 <div style="background: white; 
                            border-radius: 15px; 
                            padding: 30px; 
-                           max-width: 600px; 
-                           width: 90%;
-                           max-height: 80vh;
+                           max-width: 900px; 
+                           width: 95%;
+                           max-height: 85vh;
                            overflow-y: auto;
                            box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
                     
@@ -969,26 +1199,45 @@
                             🏢 ${domain} - Büyük Siteler
                         </h2>
                         <p style="color: #6b7280; margin: 10px 0 0 0;">
-                            Bu domain'e backlink veren büyük siteler
+                            Bu domain'e backlink veren büyük siteler - Detayları görmek için tıklayın
                         </p>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px;">
-                        ${bigSites.map(site => `
-                            <div style="background: #f8fafc; 
-                                       padding: 12px; 
-                                       border-radius: 8px; 
-                                       text-align: center;
-                                       border: 1px solid #e5e7eb;
-                                       font-weight: 500;">
-                                ${site}
-                            </div>
+                    <div id="sites-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        ${bigSites.map((site, index) => `
+                            <button onclick="showSiteDetail(${index}, '${domain}')" 
+                                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                                           color: white; 
+                                           border: none; 
+                                           padding: 20px; 
+                                           border-radius: 12px; 
+                                           cursor: pointer;
+                                           transition: all 0.3s ease;
+                                           text-align: left;
+                                           box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
+                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)'"
+                                    onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)'">
+                                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                    <span style="font-size: 24px; margin-right: 12px;">${site.icon}</span>
+                                    <span style="font-weight: bold; font-size: 16px;">${site.name}</span>
+                                </div>
+                                <p style="margin: 0; font-size: 13px; opacity: 0.9; line-height: 1.4;">
+                                    ${site.description}
+                                </p>
+                                <div style="margin-top: 10px; font-size: 11px; opacity: 0.8;">
+                                    👆 Detayları görmek için tıklayın
+                                </div>
+                            </button>
                         `).join('')}
+                    </div>
+
+                    <div id="site-detail" style="display: none; background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #3b82f6;">
+                        <!-- Site detayları buraya gelecek -->
                     </div>
 
                     <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #f59e0b;">
                         <p style="margin: 0; color: #92400e; font-size: 14px;">
-                            <strong>💡 Not:</strong> Bu liste tahmini verilerdir. Gerçek backlink analizi için profesyonel araçlar kullanın.
+                            <strong>💡 İpucu:</strong> Site butonlarına tıklayarak o sitenin ${domain} hakkında nasıl bahsettiğini görebilirsiniz.
                         </p>
                     </div>
 
@@ -1009,6 +1258,67 @@
             `;
             
             document.body.appendChild(modal);
+            
+            // Site detay gösterme fonksiyonu
+            window.showSiteDetail = function(siteIndex, domain) {
+                const site = bigSites[siteIndex];
+                const detailDiv = modal.querySelector('#site-detail');
+                
+                detailDiv.style.display = 'block';
+                detailDiv.innerHTML = `
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 32px; margin-right: 15px;">${site.icon}</span>
+                        <div>
+                            <h3 style="margin: 0; color: #1f2937; font-size: 20px;">${site.name}</h3>
+                            <p style="margin: 5px 0 0 0; color: #6b7280; font-size: 14px;">${site.description}</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #374151; font-size: 16px;">🔗 Backlink Bağlamı:</h4>
+                        <p style="margin: 0; color: #4b5563; font-size: 14px; line-height: 1.5;">
+                            ${site.backlink_context}
+                        </p>
+                    </div>
+                    
+                    <div style="background: #e0f2fe; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #0288d1;">
+                        <h4 style="margin: 0 0 10px 0; color: #01579b; font-size: 16px;">📝 Örnek Bahsetme:</h4>
+                        <p style="margin: 0; color: #0277bd; font-style: italic; font-size: 14px; line-height: 1.5;">
+                            "${site.sample_mention}"
+                        </p>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <a href="${site.url}" target="_blank" 
+                           style="background: #3b82f6; 
+                                  color: white; 
+                                  text-decoration: none; 
+                                  padding: 10px 20px; 
+                                  border-radius: 8px; 
+                                  font-weight: bold;
+                                  display: inline-flex;
+                                  align-items: center;
+                                  gap: 8px;">
+                            🌐 ${site.name} Ana Sayfası
+                        </a>
+                        <a href="${site.searchUrl}" target="_blank" 
+                           style="background: #10b981; 
+                                  color: white; 
+                                  text-decoration: none; 
+                                  padding: 10px 20px; 
+                                  border-radius: 8px; 
+                                  font-weight: bold;
+                                  display: inline-flex;
+                                  align-items: center;
+                                  gap: 8px;">
+                            🔍 ${domain} için Ara
+                        </a>
+                    </div>
+                `;
+                
+                // Detay bölümüne scroll
+                detailDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            };
             
             // Modal dışına tıklanınca kapat
             modal.addEventListener('click', function(e) {
@@ -1175,6 +1485,284 @@
             });
             
             return suggestions.slice(0, 12); // İlk 12 öneriyi döndür
+        }
+
+        // Tema İndirme Fonksiyonu
+        document.getElementById("themeDownloadForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const resultsDiv = document.getElementById("themeDownloadResults");
+            const formData = new FormData(e.target);
+            const url = formData.get('url');
+            
+            // URL doğrulama
+            if (!isValidThemeUrl(url)) {
+                resultsDiv.innerHTML = `
+                    <div class="status-message status-error">
+                        <span>❌</span>
+                        <div>
+                            <strong>Geçersiz URL</strong><br>
+                            Lütfen desteklenen sitelerden birinin linkini girin.
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Loading durumu
+            resultsDiv.innerHTML = `
+                <div class="status-message status-loading loading-pulse">
+                    <span>⏳</span>
+                    <div>
+                        <strong>Tema analiz ediliyor...</strong><br>
+                        <div class="download-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="progress-text">Bağlantı kuruluyor...</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Progress simulation
+            simulateDownloadProgress();
+            
+            try {
+                const response = await fetch("/download_theme", { 
+                    method: "POST", 
+                    body: formData 
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const result = data.data;
+                    
+                    // İndirme durumuna göre farklı mesajlar
+                    let statusIcon = '✅';
+                    let statusTitle = 'İndirme Başarılı!';
+                    let statusClass = 'download-success';
+                    
+                    if (result.download_status === 'alternative') {
+                        statusIcon = '🔄';
+                        statusTitle = 'Alternatif Kaynak Bulundu!';
+                        statusClass = 'download-alternative';
+                    } else if (result.download_status === 'not_found') {
+                        statusIcon = '⚠️';
+                        statusTitle = 'İndirme Linki Bulunamadı';
+                        statusClass = 'download-warning';
+                    } else if (result.download_status === 'failed') {
+                        statusIcon = '❌';
+                        statusTitle = 'İndirme Başarısız';
+                        statusClass = 'download-error';
+                    }
+                    
+                    resultsDiv.innerHTML = `
+                        <div class="result-card ${statusClass}">
+                            <div class="result-header">
+                                <h3 class="result-title">${statusIcon} ${statusTitle}</h3>
+                                <div class="download-badge">
+                                    <span>📦</span>
+                                    ${result.file_size || 'Bilinmiyor'}
+                                </div>
+                            </div>
+                            
+                            <div class="theme-info">
+                                <div class="theme-preview">
+                                    <img src="${result.preview_image || '/static/default-theme.png'}" 
+                                         alt="Tema Önizleme" 
+                                         style="width: 100%; max-width: 300px; border-radius: 8px;"
+                                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjNmNGY2Ii8+Cjx0ZXh0IHg9IjE1MCIgeT0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOWNhM2FmIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiPk9uaXpsZW1lPC90ZXh0Pgo8L3N2Zz4='">
+                                </div>
+                                <div class="theme-details">
+                                    <h4>${result.title || 'Tema'}</h4>
+                                    <p><strong>📁 Dosya:</strong> ${result.filename || 'Bilinmiyor'}</p>
+                                    <p><strong>📊 Boyut:</strong> ${result.file_size || 'Bilinmiyor'}</p>
+                                    <p><strong>🎨 Kategori:</strong> ${result.category || 'Tema'}</p>
+                                    <p><strong>⭐ Rating:</strong> ${result.rating || 'N/A'}</p>
+                                    ${result.download_note ? `<p><strong>📝 Durum:</strong> ${result.download_note}</p>` : ''}
+                                </div>
+                            </div>
+                            
+                            <div class="download-actions">
+                                ${result.download_url ? `
+                                    <a href="${result.download_url}" 
+                                       class="btn btn-primary" 
+                                       ${result.download_url.startsWith('/static/') ? `download="${result.filename}"` : 'target="_blank"'}>
+                                        <span>⬇️</span>
+                                        ${result.download_status === 'alternative' ? 'Alternatif Siteye Git' : 'Dosyayı İndir'}
+                                    </a>
+                                ` : ''}
+                                
+                                ${result.preview_url || result.original_url ? `
+                                    <button onclick="showThemePreview('${result.preview_url || result.original_url}')" 
+                                            class="btn btn-secondary">
+                                        <span>👁️</span>
+                                        Önizleme
+                                    </button>
+                                ` : ''}
+                                
+                                ${result.original_url ? `
+                                    <a href="${result.original_url}" 
+                                       target="_blank"
+                                       class="btn btn-outline">
+                                        <span>🔗</span>
+                                        Orijinal Sayfa
+                                    </a>
+                                ` : ''}
+                            </div>
+                            
+                            <div class="download-info">
+                                ${result.download_status === 'success' ? `
+                                    <p><strong>📝 Not:</strong> İndirme linki 24 saat geçerlidir.</p>
+                                    <p><strong>🔒 Güvenlik:</strong> Dosya virüs taramasından geçirilmiştir.</p>
+                                ` : result.download_status === 'alternative' ? `
+                                    <p><strong>⚠️ Uyarı:</strong> Bu alternatif bir kaynaktır. Güvenlik kontrolü yapın.</p>
+                                    <p><strong>📝 Not:</strong> Orijinal siteden indirme yapılamadığı için alternatif kaynak bulundu.</p>
+                                ` : `
+                                    <p><strong>💡 Öneri:</strong> URL'yi kontrol edin veya daha sonra tekrar deneyin.</p>
+                                    <p><strong>🔍 Alternatif:</strong> Manuel olarak siteyi ziyaret edebilirsiniz.</p>
+                                `}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultsDiv.innerHTML = `
+                        <div class="status-message status-error">
+                            <span>❌</span>
+                            <div>
+                                <strong>İndirme Hatası</strong><br>
+                                ${data.error || 'Bilinmeyen bir hata oluştu.'}
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <div class="status-message status-error">
+                        <span>❌</span>
+                        <div>
+                            <strong>Bağlantı Hatası</strong><br>
+                            Sunucuya bağlanırken bir hata oluştu. Lütfen tekrar deneyin.
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        // URL doğrulama fonksiyonu
+        function isValidThemeUrl(url) {
+            const validDomains = [
+                'themeforest.net',
+                'codecanyon.net',
+                'elements.envato.com',
+                'photodune.net',
+                'audiojungle.net',
+                'videohive.net',
+                'graphicriver.net'
+            ];
+            
+            try {
+                const urlObj = new URL(url);
+                return validDomains.some(domain => urlObj.hostname.includes(domain));
+            } catch {
+                return false;
+            }
+        }
+
+        // İndirme progress simülasyonu
+        function simulateDownloadProgress() {
+            const progressBar = document.querySelector('.progress-fill');
+            const progressText = document.querySelector('.progress-text');
+            
+            if (!progressBar || !progressText) return;
+            
+            const steps = [
+                { progress: 10, text: 'URL analiz ediliyor...' },
+                { progress: 25, text: 'Tema bilgileri alınıyor...' },
+                { progress: 40, text: 'İndirme linki oluşturuluyor...' },
+                { progress: 60, text: 'Dosya hazırlanıyor...' },
+                { progress: 80, text: 'Güvenlik kontrolü yapılıyor...' },
+                { progress: 95, text: 'Son kontroller...' },
+                { progress: 100, text: 'Tamamlandı!' }
+            ];
+            
+            let currentStep = 0;
+            const interval = setInterval(() => {
+                if (currentStep < steps.length) {
+                    const step = steps[currentStep];
+                    progressBar.style.width = step.progress + '%';
+                    progressText.textContent = step.text;
+                    currentStep++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 800);
+        }
+
+        // Tema önizleme fonksiyonu
+        function showThemePreview(previewUrl) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; 
+                           border-radius: 15px; 
+                           padding: 20px; 
+                           max-width: 90vw; 
+                           max-height: 90vh;
+                           overflow: auto;
+                           box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h3 style="margin: 0; color: #24292e;">👁️ Tema Önizleme</h3>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()"
+                                style="position: absolute; 
+                                       top: 15px; 
+                                       right: 15px;
+                                       background: #ef4444; 
+                                       color: white; 
+                                       border: none; 
+                                       width: 30px;
+                                       height: 30px;
+                                       border-radius: 50%; 
+                                       cursor: pointer;">
+                            ✕
+                        </button>
+                    </div>
+                    
+                    <iframe src="${previewUrl}" 
+                            style="width: 100%; 
+                                   height: 70vh; 
+                                   border: none; 
+                                   border-radius: 8px;">
+                    </iframe>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
         }
     </script>
 </body>

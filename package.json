@@ -1,0 +1,27 @@
+{
+  "name": "seo-domain-analysis-tool",
+  "version": "1.0.0",
+  "description": "Comprehensive SEO analysis, domain tools, and theme downloading platform",
+  "main": "app.py",
+  "scripts": {
+    "dev": "python app.py",
+    "build": "echo 'Python Flask app - no build needed'",
+    "start": "python app.py"
+  },
+  "keywords": [
+    "seo",
+    "domain-analysis",
+    "keyword-research",
+    "backlink-analysis",
+    "theme-downloader",
+    "flask",
+    "python"
+  ],
+  "author": "Trae AI",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.x"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
