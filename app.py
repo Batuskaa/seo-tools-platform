@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 from pytrends.request import TrendReq
 import whois
 import requests
@@ -8,12 +8,26 @@ import random
 import re
 from urllib.parse import urlparse
 import dns.resolver
+import os
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    """Static dosyalar için route"""
+    return send_from_directory('static', filename)
+
+@app.route('/downloads/<path:filename>')
+def download_files(filename):
+    """Download dosyaları için route"""
+    downloads_dir = os.path.join('static', 'downloads')
+    if not os.path.exists(downloads_dir):
+        os.makedirs(downloads_dir)
+    return send_from_directory(downloads_dir, filename)
 
 # Birden fazla API'den veri çekme fonksiyonu
 def get_keyword_data_multi_api(keyword, country):
